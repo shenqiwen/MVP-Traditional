@@ -1,8 +1,13 @@
-package com.sqw.mvp_traditional;
+package com.sqw.mvp_traditional.model;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.sqw.mvp_traditional.R;
+
+/**
+ * 主界面
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
