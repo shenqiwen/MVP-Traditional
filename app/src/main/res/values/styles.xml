@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--  注意 :
+   - AppTheme.NoActionBar 使用的主题是AppCompat(兼容性)的主题
+   - AppCompat主题下的windowActionBar和windowNoTitle的命名方式前都没有android字样
+   - 设置这两种属性是为了去除ActionBar
+   -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

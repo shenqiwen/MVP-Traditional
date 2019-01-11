@@ -3,4 +3,22 @@
 
     <!-- View Action -->
     <string name="network_error">网络不给力</string>
+    <string name="double_click_exit">再按一次退出程序</string>
+
+    <!-- Menu Action -->
+    <string name="action_search">搜索</string>
+
+    <!-- Bottom Navigation Title -->
+    <string name="bottom_navigation_title1">1</string>
+    <string name="bottom_navigation_title2">2</string>
+    <string name="bottom_navigation_title3">3</string>
+    <string name="bottom_navigation_title4">4</string>
+
+    <!-- DrawerLayout Navigation-->
+    <string name="navigation_drawer_open">打开侧栏</string>
+    <string name="navigation_drawer_close">关闭侧栏</string>
+    <string name="nav_switch_night_mode">切换主题</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_share">分享</string>
+
 </resources>

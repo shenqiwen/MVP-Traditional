@@ -10,6 +10,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        /**
+         * 1. 增加 5.0 以下对Vector兼容性的支持
+         *    否则 在5.0以下的设备上运行报android.content.res.Resources$NotFoundException
+         * 2. 添加appcompat的支持
+         * 3. 确保你使用的是AppCompatActivity而不是普通的Activity
+         */
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
