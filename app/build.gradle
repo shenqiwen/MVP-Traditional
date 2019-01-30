@@ -48,5 +48,4 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     // 腾讯bugly
     compile 'com.tencent.bugly:crashreport:2.6.6'
-    compile 'com.jaeger.statusbarutil:library:1.5.1'
 }
