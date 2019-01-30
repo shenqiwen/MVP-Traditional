@@ -4,6 +4,8 @@
     <!-- View Action -->
     <string name="network_error">网络不给力</string>
     <string name="double_click_exit">再按一次退出程序</string>
+    <string name="no_more_content">暂无更多内容</string>
+    <string name="loading">加载中</string>
 
     <!-- Menu Action -->
     <string name="action_search">搜索</string>
@@ -21,4 +23,13 @@
     <string name="nav_setting">设置</string>
     <string name="nav_share">分享</string>
 
+    <!-- Title -->
+    <string name="title_channel_edit">频道编辑</string>
+
+    <!-- Item Drag -->
+    <string name="tip_drag">长按编辑,拖拽排序</string>
+    <string name="my_cahnnel">我的频道</string>
+    <string name="other_channel">隐藏频道</string>
+    <string name="edit">编辑</string>
+    <string name="finish">完成</string>
 </resources>

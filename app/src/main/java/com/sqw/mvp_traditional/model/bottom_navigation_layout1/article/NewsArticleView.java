@@ -1,0 +1,84 @@
+package com.sqw.mvp_traditional.model.bottom_navigation_layout1.article;
+
+import android.os.Bundle;
+import android.view.View;
+
+import com.sqw.mvp_traditional.Register;
+import com.sqw.mvp_traditional.bean.entity.LoadingBean;
+import com.sqw.mvp_traditional.model.base.BaseListFragment;
+import com.sqw.mvp_traditional.utils.OnLoadMoreListener;
+
+import java.util.List;
+
+import me.drakeet.multitype.Items;
+import me.drakeet.multitype.MultiTypeAdapter;
+
+public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presenter> implements NewsArticleContract.View {
+
+    private static final String TAG = "NewsArticleView";
+    private String categoryId;
+
+    public static NewsArticleView newInstance(String categoryId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG, categoryId);
+        NewsArticleView view = new NewsArticleView();
+        view.setArguments(bundle);
+        return view;
+    }
+
+    @Override
+    protected void initData() {
+        categoryId = getArguments().getString(TAG);
+    }
+
+    @Override
+    protected void initView(View view) {
+        super.initView(view);
+        adapter = new MultiTypeAdapter(oldItems);
+        Register.registerNewsArticleItem(adapter);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                if (canLoadMore) {
+                    canLoadMore = false;
+                    presenter.doLoadMoreData();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void fetchData() {
+        super.fetchData();
+        onLoadData();
+    }
+
+    @Override
+    public void onLoadData() {
+        onShowLoading();
+        presenter.doLoadData(categoryId);
+    }
+
+    @Override
+    public void onSetAdapter(final List<?> list) {
+        oldItems.clear();
+        oldItems.addAll(list);
+        oldItems.add(new LoadingBean());
+        adapter.notifyDataSetChanged();
+        canLoadMore = true;
+        /**
+         * https://medium.com/@hanru.yeh/recyclerview-and-appbarlayout-behavior-changed-in-v26-0-x-d9eb4de78fc0
+         * support libraries v26 增加了 RV 惯性滑动，当 root layout 使用了 AppBarLayout Behavior 就会自动生效
+         * 因此需要手动停止滑动
+         */
+     //   recyclerView.stopScroll();
+    }
+
+    @Override
+    public void setPresenter(NewsArticleContract.Presenter presenter) {
+        if (null == presenter) {
+            this.presenter = new NewsArticlePresenter(this);
+        }
+    }
+}

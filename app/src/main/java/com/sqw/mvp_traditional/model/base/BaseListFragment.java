@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sqw.mvp_traditional.R;
-import com.sqw.mvp_traditional.bean.LoadingEndBean;
+import com.sqw.mvp_traditional.bean.entity.LoadingEndBean;
 import com.sqw.mvp_traditional.utils.SettingUtil;
 
 import me.drakeet.multitype.Items;
@@ -27,6 +27,7 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
     protected RecyclerView recyclerView;
     protected SwipeRefreshLayout swipeRefreshLayout;
     protected MultiTypeAdapter adapter;
+    // 页面数据源 子类共享
     protected Items oldItems = new Items();
     // 是否可以加载更多的标记
     protected boolean canLoadMore = false;
@@ -108,13 +109,13 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (oldItems.size() > 0) {
+                if (oldItems.size() > 0) { // 数据源有数据时 将无数据item添加到最后一项
                     Items newItems = new Items(oldItems);
                     newItems.remove(newItems.size() - 1);
                     newItems.add(new LoadingEndBean());
                     adapter.setItems(newItems);
                     adapter.notifyDataSetChanged();
-                } else if (oldItems.size() == 0) {
+                } else if (oldItems.size() == 0) { // 数据源无数据时 直接添加
                     oldItems.add(new LoadingEndBean());
                     adapter.setItems(oldItems);
                     adapter.notifyDataSetChanged();
@@ -126,7 +127,8 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
     }
 
     /**
-     * 下拉刷新
+     * 底部导航栏双击置顶
+     * 置顶后再次双击刷新
      */
     @Override
     public void onRefresh() {
@@ -137,8 +139,8 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
             presenter.doRefresh();
             return;
         }
-        // ???
-        recyclerView.scrollToPosition(5);
+        // 置顶滑动动画
+        recyclerView.scrollToPosition(8);
         recyclerView.smoothScrollToPosition(0);
     }
 

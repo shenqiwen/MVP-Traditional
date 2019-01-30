@@ -124,8 +124,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if ((secondClickTime - firstClickTime < 500)) { // 500 毫秒
             switch (index) {
                 case FRAGMENT_NAVIGATION1:
-                 //   bottomNavigationFragment1.onDoubleClick();
-                    Toast.makeText(this,"双击刷新",Toast.LENGTH_SHORT).show();
+                    bottomNavigationFragment1.onDoubleClick();
+                 //   Toast.makeText(this,"双击刷新",Toast.LENGTH_SHORT).show();
                     break;
                 case FRAGMENT_NAVIGATION2:
                  //   bottomNavigationFragment2.onDoubleClick();
