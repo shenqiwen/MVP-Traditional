@@ -60,6 +60,7 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
                                 tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间"+i,mCategory));
                             }
                             doSetAdapter(tempDataList);
+                            view.onHideLoading();
                         }
                     });
 
@@ -72,14 +73,45 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
     @Override
     public void doLoadMoreData() {
-        doLoadData();
+
+        // 释放内存
+//        if (dataList.size() > 300) {
+//            dataList.clear();
+//        }
+
+        // 模拟加载网络数据网络
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+
+                    Fragment fragment = (Fragment) view;
+                    Activity mainActivity = fragment.getActivity();
+
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            List<MultiNewsArticleDataBean> tempDataList = new ArrayList<>();
+                            for (int i = 0; i < 50; i++) {
+                                tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间"+i,mCategory));
+                            }
+                            doSetAdapter(tempDataList);
+                            view.onHideLoadingMore();
+                        }
+                    });
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
     public void doSetAdapter(List<MultiNewsArticleDataBean> list) {
         dataList.addAll(list);
         view.onSetAdapter(dataList);
-        view.onHideLoading();
     }
 
     @Override

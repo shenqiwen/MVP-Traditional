@@ -48,4 +48,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     // 腾讯bugly
     compile 'com.tencent.bugly:crashreport:2.6.6'
+    // SmartRefreshLayout
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-20'
 }

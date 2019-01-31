@@ -1,4 +1,4 @@
-package com.sqw.mvp_traditional.binder.news;
+package com.sqw.mvp_traditional.binder;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

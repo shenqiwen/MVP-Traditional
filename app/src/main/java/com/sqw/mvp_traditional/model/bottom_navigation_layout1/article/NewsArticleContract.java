@@ -17,9 +17,9 @@ public interface NewsArticleContract {
         void onLoadData();
 
         /**
-         * 刷新
+         * 双击刷新
          */
-        void onRefresh();
+        void onDoubleClickRefresh();
     }
 
     interface Presenter extends IBasePresenter {
@@ -30,17 +30,12 @@ public interface NewsArticleContract {
         void doLoadData(String... category);
 
         /**
-         * 加载更多
-         */
-        void doLoadMoreData();
-
-        /**
          * 设置适配器
          */
         void doSetAdapter(List<MultiNewsArticleDataBean> dataBeen);
 
         /**
-         * 加载完毕
+         * 没有更多
          */
         void doShowNoMore();
     }

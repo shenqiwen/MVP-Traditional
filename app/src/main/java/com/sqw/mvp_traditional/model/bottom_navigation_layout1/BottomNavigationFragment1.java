@@ -150,7 +150,7 @@ public class BottomNavigationFragment1 extends Fragment {
     public void onDoubleClick() {
         if (titleList != null && titleList.size() > 0 && fragmentList != null && fragmentList.size() > 0) {
             int item = viewPager.getCurrentItem();
-            ((BaseListFragment) fragmentList.get(item)).onRefresh();
+            ((BaseListFragment) fragmentList.get(item)).onDoubleClickRefresh();
         }
     }
 

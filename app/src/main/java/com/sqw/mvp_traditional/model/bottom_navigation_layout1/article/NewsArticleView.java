@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.sqw.mvp_traditional.Register;
-import com.sqw.mvp_traditional.bean.entity.LoadingBean;
 import com.sqw.mvp_traditional.model.base.BaseListFragment;
-import com.sqw.mvp_traditional.utils.OnLoadMoreListener;
 
 import java.util.List;
 
-import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presenter> implements NewsArticleContract.View {
@@ -37,15 +34,6 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
         adapter = new MultiTypeAdapter(oldItems);
         Register.registerNewsArticleItem(adapter);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                if (canLoadMore) {
-                    canLoadMore = false;
-                    presenter.doLoadMoreData();
-                }
-            }
-        });
     }
 
     @Override
@@ -64,9 +52,7 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
     public void onSetAdapter(final List<?> list) {
         oldItems.clear();
         oldItems.addAll(list);
-        oldItems.add(new LoadingBean());
         adapter.notifyDataSetChanged();
-        canLoadMore = true;
         /**
          * https://medium.com/@hanru.yeh/recyclerview-and-appbarlayout-behavior-changed-in-v26-0-x-d9eb4de78fc0
          * support libraries v26 增加了 RV 惯性滑动，当 root layout 使用了 AppBarLayout Behavior 就会自动生效
