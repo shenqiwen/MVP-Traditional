@@ -120,7 +120,6 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
             dataList.clear();
             time = TimeUtil.getCurrentTimeStamp();
         }
-        view.onShowLoading();
         doLoadData();
     }
 

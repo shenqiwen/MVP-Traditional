@@ -19,6 +19,16 @@ public interface IBaseView<T> {
     void onHideLoading();
 
     /**
+     * 隐藏上拉加载动画
+     */
+    void onHideLoadingMore();
+
+    /**
+     * 加载数据
+     */
+    void onLoadData();
+
+    /**
      * 显示网络错误
      */
     void onShowNetError();

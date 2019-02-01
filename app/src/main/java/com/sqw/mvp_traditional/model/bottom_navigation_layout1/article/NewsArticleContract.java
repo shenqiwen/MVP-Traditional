@@ -12,14 +12,8 @@ public interface NewsArticleContract {
     interface View extends IBaseListView<Presenter> {
 
         /**
-         * 加载数据
+         * 具体业务界面需要定义的接口
          */
-        void onLoadData();
-
-        /**
-         * 双击刷新
-         */
-        void onDoubleClickRefresh();
     }
 
     interface Presenter extends IBasePresenter {
@@ -34,9 +28,5 @@ public interface NewsArticleContract {
          */
         void doSetAdapter(List<MultiNewsArticleDataBean> dataBeen);
 
-        /**
-         * 没有更多
-         */
-        void doShowNoMore();
     }
 }

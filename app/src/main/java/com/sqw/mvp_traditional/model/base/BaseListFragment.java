@@ -38,10 +38,6 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         return R.layout.fragment_list;
     }
 
-    public SmartRefreshLayout getSmartRefreshLayout() {
-        return smartRefreshLayout;
-    }
-
     @Override
     protected void initView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -58,7 +54,7 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         smartRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                // 展开上拉刷新动画
+                // 展开下拉刷新动画
                 smartRefreshLayout.autoRefresh();
             }
         });
@@ -69,7 +65,7 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         smartRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                // 关闭上拉刷新动画
+                // 关闭下拉刷新动画
                 smartRefreshLayout.finishRefresh();
             }
         });
@@ -124,7 +120,7 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (oldItems.size() > 0) { // 数据源有数据时 将无数据item添加到最后一项
+                if (oldItems.size() > 0) {
                     adapter.setItems(oldItems);
                     adapter.notifyDataSetChanged();
                 }
@@ -161,7 +157,7 @@ public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoa
         int firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
         if (firstVisibleItemPosition == 0) {
             // 刷新数据
-            presenter.doRefresh();
+            onShowLoading();
             return;
         }
         // 置顶滑动动画
