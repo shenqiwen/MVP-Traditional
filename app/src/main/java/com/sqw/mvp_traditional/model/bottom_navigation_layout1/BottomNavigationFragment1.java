@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class BottomNavigationFragment1 extends Fragment {
 
-    public  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private static BottomNavigationFragment1 instance = null;
     private ViewPager viewPager;
     private BasePagerAdapter adapter;

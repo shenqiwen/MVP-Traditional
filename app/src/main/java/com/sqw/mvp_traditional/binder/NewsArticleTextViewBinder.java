@@ -17,7 +17,7 @@ import me.drakeet.multitype.ItemViewBinder;
 
 public class NewsArticleTextViewBinder extends ItemViewBinder<MultiNewsArticleDataBean, NewsArticleTextViewBinder.ViewHolder> {
 
-    private static final String TAG = "NewsArticleTextViewBind";
+    private final String TAG = getClass().getSimpleName();
 
     @NonNull
     @Override

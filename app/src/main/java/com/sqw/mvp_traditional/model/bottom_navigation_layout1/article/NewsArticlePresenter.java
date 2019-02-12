@@ -14,7 +14,7 @@ import java.util.List;
 
 public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
-    private static final String TAG = "NewsArticlePresenter";
+    private final String TAG = getClass().getSimpleName();
     private NewsArticleContract.View view;
     // 数据源
     private List<MultiNewsArticleDataBean> dataList = new ArrayList<>();

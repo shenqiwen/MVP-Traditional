@@ -14,7 +14,7 @@ import com.sqw.mvp_traditional.R;
  */
 public class BottomNavigationFragment2 extends Fragment {
 
-    private  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private static BottomNavigationFragment2 instance = null;
 
     public static BottomNavigationFragment2 getInstance() {

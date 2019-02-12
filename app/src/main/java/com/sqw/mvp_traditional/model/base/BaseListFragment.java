@@ -26,7 +26,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 
 public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyLoadFragment<T> implements IBaseListView<T>, OnRefreshListener,OnLoadMoreListener {
 
-    public  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     protected RecyclerView recyclerView;
     protected SmartRefreshLayout smartRefreshLayout;
     protected MultiTypeAdapter adapter;

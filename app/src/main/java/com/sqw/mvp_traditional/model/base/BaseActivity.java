@@ -14,7 +14,7 @@ import com.sqw.mvp_traditional.utils.SettingUtil;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
     /**
      * 对子类提供初始化ToolBar的方法

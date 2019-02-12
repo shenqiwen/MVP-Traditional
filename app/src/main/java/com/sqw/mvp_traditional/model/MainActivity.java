@@ -26,7 +26,7 @@ import com.sqw.mvp_traditional.widget.BottomNavigationViewHelper;
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private static final String POSITION = "position";
     private static final String SELECT_ITEM = "bottomNavigationSelectItem";
     private static final int FRAGMENT_NAVIGATION1 = 0;

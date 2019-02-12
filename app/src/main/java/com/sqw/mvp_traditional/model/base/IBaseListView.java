@@ -25,21 +25,6 @@ public interface IBaseListView<T> extends IBaseView<T> {
     void onHideLoadingMore();
 
     /**
-     * 加载数据
-     */
-    void onLoadData();
-
-    /**
-     * 显示网络错误
-     */
-    void onShowNetError();
-
-    /**
-     * 设置 presenter
-     */
-    void setPresenter(T presenter);
-
-    /**
      * 设置适配器
      */
     void onSetAdapter(List<?> list);
