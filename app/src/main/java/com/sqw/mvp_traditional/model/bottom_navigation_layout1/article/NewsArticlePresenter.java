@@ -8,6 +8,7 @@ import com.sqw.mvp_traditional.bean.entity.MultiNewsArticleDataBean;
 import com.sqw.mvp_traditional.utils.TimeUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -27,15 +28,14 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
     }
 
     @Override
-    public void doLoadData(final String... category) {
-
-        try {
-            if (this.mCategory == null) {
-                this.mCategory = category[0];
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void doSetChannelCategory(String... category) {
+        if (this.mCategory == null) {
+            this.mCategory = category[0];
         }
+    }
+
+    @Override
+    public void doLoadData() {
 
         // 释放内存
 //        if (dataList.size() > 300) {
@@ -109,8 +109,8 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
     }
 
     @Override
-    public void doSetAdapter(List<MultiNewsArticleDataBean> list) {
-        dataList.addAll(list);
+    public void doSetAdapter(List<?> list) {
+        dataList.addAll((Collection<? extends MultiNewsArticleDataBean>) list) ;
         view.onSetAdapter(dataList);
     }
 

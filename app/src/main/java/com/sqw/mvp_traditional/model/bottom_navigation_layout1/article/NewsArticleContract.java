@@ -1,32 +1,25 @@
 package com.sqw.mvp_traditional.model.bottom_navigation_layout1.article;
 
 
-import com.sqw.mvp_traditional.bean.entity.MultiNewsArticleDataBean;
+import com.sqw.mvp_traditional.model.base.IBaseListPresent;
 import com.sqw.mvp_traditional.model.base.IBaseListView;
-import com.sqw.mvp_traditional.model.base.IBasePresenter;
 
-import java.util.List;
+/**
+ * 具体业务V 和 P 层需要定义的接口
+ */
 
 public interface NewsArticleContract {
 
+    // 具体视图页预留接口
     interface View extends IBaseListView<Presenter> {
 
-        /**
-         * 具体业务界面需要定义的接口
-         */
     }
 
-    interface Presenter extends IBasePresenter {
-
+    interface Presenter extends IBaseListPresent {
         /**
-         * 加载数据
+         * 设置频道类别
          */
-        void doLoadData(String... category);
-
-        /**
-         * 设置适配器
-         */
-        void doSetAdapter(List<MultiNewsArticleDataBean> dataBeen);
+        void doSetChannelCategory(String... category);
 
     }
 }

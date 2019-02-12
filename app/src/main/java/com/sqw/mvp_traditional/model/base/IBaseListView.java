@@ -3,8 +3,8 @@ package com.sqw.mvp_traditional.model.base;
 import java.util.List;
 
 /**
- * 列表视图页接口 基类 继承于IBaseView
- * 相较于父接口IBaseView 增加了 设置适配器 没有更多 两个方法
+ * 列表视图接口基类 继承于IBaseView
+ * 适用于 列表视图页
  */
 
 public interface IBaseListView<T> extends IBaseView<T> {

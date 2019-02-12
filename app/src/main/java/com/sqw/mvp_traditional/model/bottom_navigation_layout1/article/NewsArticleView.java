@@ -44,6 +44,7 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
 
     @Override
     public void onLoadData() {
+        presenter.doSetChannelCategory(categoryId);
         onShowLoading();
     }
 

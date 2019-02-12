@@ -21,10 +21,10 @@ import me.drakeet.multitype.MultiTypeAdapter;
  * 此层主要作用:
  *             实现上一层 懒加载类(抽象类LazyLoadFragment) 中定义的碎片页初次加载的回调方法
  *             实现上一层 碎片基类(抽象类BaseFragment) 中定义的抽象方法
- *             实现上一层 碎片基类(抽象类BaseFragment) 中实现的IBaseView 接口中定义的UI操作方法
+ *             实现上一层 碎片基类(抽象类BaseFragment) 接口(IBaseView)中定义的UI操作方法
  */
 
-public abstract class BaseListFragment<T extends IBasePresenter> extends LazyLoadFragment<T> implements IBaseListView<T>, OnRefreshListener,OnLoadMoreListener {
+public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyLoadFragment<T> implements IBaseListView<T>, OnRefreshListener,OnLoadMoreListener {
 
     public  final String TAG = getClass().getSimpleName();
     protected RecyclerView recyclerView;

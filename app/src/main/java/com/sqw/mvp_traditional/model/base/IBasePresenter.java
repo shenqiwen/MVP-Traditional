@@ -1,27 +1,18 @@
 package com.sqw.mvp_traditional.model.base;
 
 /**
- * P层 接口基类
+ * P层 普通视图接口基类
  */
 public interface IBasePresenter {
 
     /**
-     * 刷新数据
+     * 加载数据
      */
-    void doRefresh();
-
-    /**
-     * 加载更多
-     */
-    void doLoadMoreData();
+    void doLoadData();
 
     /**
      * 显示网络错误
      */
     void doShowNetError();
 
-    /**
-     * 没有更多
-     */
-    void doShowNoMore();
 }
