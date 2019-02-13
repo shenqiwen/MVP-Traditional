@@ -30,7 +30,7 @@ public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyL
     protected RecyclerView recyclerView;
     protected SmartRefreshLayout smartRefreshLayout;
     protected MultiTypeAdapter adapter;
-    // 页面数据源 子类共享
+    // 页面数据源 子类可继承
     protected Items oldItems = new Items();
 
     @Override
@@ -83,14 +83,6 @@ public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyL
     }
 
     /**
-     * 懒加载初次加载数据
-     */
-    @Override
-    public void fetchData() {
-
-    }
-
-    /**
      * 网络异常
      */
     @Override
@@ -120,10 +112,7 @@ public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyL
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (oldItems.size() > 0) {
-                    adapter.setItems(oldItems);
-                    adapter.notifyDataSetChanged();
-                }
+                Toast.makeText(getActivity(), R.string.no_more_content, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,6 +123,9 @@ public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyL
      */
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        if (oldItems.size() > 0){
+            oldItems.clear();
+        }
         // 刷新数据
         presenter.doRefresh();
     }

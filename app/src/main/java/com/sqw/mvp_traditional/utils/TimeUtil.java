@@ -63,7 +63,11 @@ public class TimeUtil {
         return timeAgo(date);
     }
 
-    public static String getCurrentTimeStamp() {
+    public static String getCurrentSecondTimeStamp() {
         return String.valueOf(System.currentTimeMillis() / 1000);
+    }
+
+    public static String getCurrentMilliSecondTimeStamp(){
+        return String.valueOf(System.currentTimeMillis());
     }
 }

@@ -8,7 +8,6 @@ import com.sqw.mvp_traditional.bean.entity.MultiNewsArticleDataBean;
 import com.sqw.mvp_traditional.utils.TimeUtil;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -16,15 +15,11 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
     private final String TAG = getClass().getSimpleName();
     private NewsArticleContract.View view;
-    // 数据源
-    private List<MultiNewsArticleDataBean> dataList = new ArrayList<>();
     private String mCategory;
-    private String time;
     private Gson gson = new Gson();
 
     public NewsArticlePresenter(NewsArticleContract.View view) {
         this.view = view;
-        this.time = TimeUtil.getCurrentTimeStamp();
     }
 
     @Override
@@ -36,28 +31,21 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
     @Override
     public void doLoadData() {
-
-        // 释放内存
-//        if (dataList.size() > 300) {
-//            dataList.clear();
-//        }
-
         // 模拟加载网络数据网络
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(3000);
-
                     Fragment fragment = (Fragment) view;
                     Activity mainActivity = fragment.getActivity();
-
                     mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             List<MultiNewsArticleDataBean> tempDataList = new ArrayList<>();
                             for (int i = 0; i < 50; i++) {
-                                tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间"+i,mCategory));
+                                String time = TimeUtil.getCurrentMilliSecondTimeStamp();
+                                tempDataList.add(new MultiNewsArticleDataBean("新闻标题: "+i,"新闻内容: "+i,"时间: "+time,"频道类型: "+mCategory));
                             }
                             doSetAdapter(tempDataList);
                             view.onHideLoading();
@@ -73,34 +61,26 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
     @Override
     public void doLoadMoreData() {
-
-        // 释放内存
-//        if (dataList.size() > 300) {
-//            dataList.clear();
-//        }
-
         // 模拟加载网络数据网络
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(3000);
-
                     Fragment fragment = (Fragment) view;
                     Activity mainActivity = fragment.getActivity();
-
                     mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             List<MultiNewsArticleDataBean> tempDataList = new ArrayList<>();
                             for (int i = 0; i < 50; i++) {
-                                tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间"+i,mCategory));
+                                String time = TimeUtil.getCurrentMilliSecondTimeStamp();
+                                tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间: "+time,mCategory));
                             }
                             doSetAdapter(tempDataList);
                             view.onHideLoadingMore();
                         }
                     });
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -110,16 +90,11 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
 
     @Override
     public void doSetAdapter(List<?> list) {
-        dataList.addAll((Collection<? extends MultiNewsArticleDataBean>) list) ;
-        view.onSetAdapter(dataList);
+        view.onSetAdapter(list);
     }
 
     @Override
     public void doRefresh() {
-        if (dataList.size() != 0) {
-            dataList.clear();
-            time = TimeUtil.getCurrentTimeStamp();
-        }
         doLoadData();
     }
 

@@ -38,7 +38,6 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
 
     @Override
     public void fetchData() {
-        super.fetchData();
         onLoadData();
     }
 
@@ -50,7 +49,6 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
 
     @Override
     public void onSetAdapter(final List<?> list) {
-        oldItems.clear();
         oldItems.addAll(list);
         adapter.notifyDataSetChanged();
         /**
