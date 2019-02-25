@@ -32,4 +32,16 @@
     <string name="other_channel">隐藏频道</string>
     <string name="edit">编辑</string>
     <string name="finish">完成</string>
+
+    <!-- AlertDialog -->
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
+    <string name="button_enter">确定</string>
+    <string name="button_cancel">取消</string>
+
+    <!-- Permission -->
+    <string name="permission_write_rationale">使用此功能需要打开存储权限</string>
+    <string name="permission_write_denied">你拒绝了权限，该功能不可用</string>
+    <string name="permission_write_never_ask">已设置不再询问权限申请</string>
+
 </resources>

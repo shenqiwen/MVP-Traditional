@@ -75,7 +75,7 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
                             List<MultiNewsArticleDataBean> tempDataList = new ArrayList<>();
                             for (int i = 0; i < 50; i++) {
                                 String time = TimeUtil.getCurrentMilliSecondTimeStamp();
-                                tempDataList.add(new MultiNewsArticleDataBean("标题"+i,"内容"+i,"时间: "+time,mCategory));
+                                tempDataList.add(new MultiNewsArticleDataBean("新闻标题: "+i,"新闻内容: "+i,"时间: "+time,"频道类型: "+mCategory));
                             }
                             doSetAdapter(tempDataList);
                             view.onHideLoadingMore();

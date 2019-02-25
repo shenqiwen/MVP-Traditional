@@ -12,4 +12,12 @@
         />
 
 
+    <TextView
+        android:id="@+id/tv_requestPermissions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请求权限"
+        android:textSize="24dp"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

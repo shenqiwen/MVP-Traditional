@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sqw.mvp_traditional">
 
+    <!-- bugly  -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- App -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".InitApp"
         android:allowBackup="true"
