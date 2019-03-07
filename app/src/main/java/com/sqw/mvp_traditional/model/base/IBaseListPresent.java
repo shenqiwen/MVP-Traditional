@@ -21,7 +21,7 @@ public interface IBaseListPresent extends IBasePresenter {
     /**
      * 设置适配器
      */
-    void doSetAdapter(List<?> list);
+    void doSetAdapter(List<?> list,int actionTag);
 
     /**
      * 没有更多

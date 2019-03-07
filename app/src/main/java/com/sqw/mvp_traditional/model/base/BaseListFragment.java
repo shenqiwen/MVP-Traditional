@@ -123,9 +123,6 @@ public abstract class BaseListFragment<T extends IBaseListPresent> extends LazyL
      */
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        if (oldItems.size() > 0){
-            oldItems.clear();
-        }
         // 刷新数据
         presenter.doRefresh();
     }

@@ -27,7 +27,7 @@ public interface IBaseListView<T> extends IBaseView<T> {
     /**
      * 设置适配器
      */
-    void onSetAdapter(List<?> list);
+    void onSetAdapter(List<?> list,int actionTag);
 
     /**
      * 没有更多

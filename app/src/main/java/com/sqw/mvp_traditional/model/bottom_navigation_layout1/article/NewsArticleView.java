@@ -3,6 +3,7 @@ package com.sqw.mvp_traditional.model.bottom_navigation_layout1.article;
 import android.os.Bundle;
 import android.view.View;
 
+import com.sqw.mvp_traditional.GlobalConstants;
 import com.sqw.mvp_traditional.Register;
 import com.sqw.mvp_traditional.model.base.BaseListFragment;
 
@@ -48,8 +49,15 @@ public class NewsArticleView extends BaseListFragment<NewsArticleContract.Presen
     }
 
     @Override
-    public void onSetAdapter(final List<?> list) {
-        oldItems.addAll(list);
+    public void onSetAdapter(final List<?> list,int actionTag) {
+        if (actionTag == GlobalConstants.ACTION_PULL_DOWN) {
+            if (oldItems.size() > 0){
+                oldItems.clear();
+            }
+            oldItems.addAll(list);
+        } else if (actionTag == GlobalConstants.ACTION_PULL_UP) {
+            oldItems.addAll(list);
+        }
         adapter.notifyDataSetChanged();
         /**
          * https://medium.com/@hanru.yeh/recyclerview-and-appbarlayout-behavior-changed-in-v26-0-x-d9eb4de78fc0

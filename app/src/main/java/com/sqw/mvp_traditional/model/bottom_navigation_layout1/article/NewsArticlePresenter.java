@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import com.google.gson.Gson;
+import com.sqw.mvp_traditional.GlobalConstants;
 import com.sqw.mvp_traditional.bean.entity.MultiNewsArticleDataBean;
 import com.sqw.mvp_traditional.utils.TimeUtil;
 
@@ -47,7 +48,7 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
                                 String time = TimeUtil.getCurrentMilliSecondTimeStamp();
                                 tempDataList.add(new MultiNewsArticleDataBean("新闻标题: "+i,"新闻内容: "+i,"时间: "+time,"频道类型: "+mCategory));
                             }
-                            doSetAdapter(tempDataList);
+                            doSetAdapter(tempDataList,GlobalConstants.ACTION_PULL_DOWN);
                             view.onHideLoading();
                         }
                     });
@@ -77,7 +78,7 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
                                 String time = TimeUtil.getCurrentMilliSecondTimeStamp();
                                 tempDataList.add(new MultiNewsArticleDataBean("新闻标题: "+i,"新闻内容: "+i,"时间: "+time,"频道类型: "+mCategory));
                             }
-                            doSetAdapter(tempDataList);
+                            doSetAdapter(tempDataList, GlobalConstants.ACTION_PULL_UP);
                             view.onHideLoadingMore();
                         }
                     });
@@ -89,8 +90,8 @@ public class NewsArticlePresenter implements NewsArticleContract.Presenter {
     }
 
     @Override
-    public void doSetAdapter(List<?> list) {
-        view.onSetAdapter(list);
+    public void doSetAdapter(List<?> list,int actionTag) {
+        view.onSetAdapter(list,actionTag);
     }
 
     @Override
