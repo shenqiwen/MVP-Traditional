@@ -1,8 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
+    //greenDAO配置
+    greendao {
+        //数据库版本号，升级时修改
+        schemaVersion 1
+        //生成的DAO，DaoMaster和DaoSession的包路径。默认与表实体所在的包路径相同
+        daoPackage 'com.sqw.mvp_traditional.db.gen'
+        //生成源文件的路径。默认源文件目录是在build目录中的(build/generated/source/greendao)
+        targetGenDir 'src/main/java'
+    }
+
     defaultConfig {
         applicationId "com.sqw.mvp_traditional"
         minSdkVersion 19
@@ -56,4 +67,10 @@ dependencies {
         exclude module: 'support-v13'
     }
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.3.2'
+    //greenDAO配置
+    compile 'org.greenrobot:greendao:3.2.2'
+    // greenDAO升级辅助类
+    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
+    // 数据库调试
+    compile 'com.facebook.stetho:stetho:1.5.0'
 }

@@ -12,10 +12,11 @@ import android.widget.Toast;
 import com.sqw.mvp_traditional.GlobalConstants;
 import com.sqw.mvp_traditional.R;
 import com.sqw.mvp_traditional.adapter.ChannelEditAdapter;
-import com.sqw.mvp_traditional.bean.entity.ChannelEditBean;
 import com.sqw.mvp_traditional.bean.event.ChannelEditActivityRefreshEvent;
-import com.sqw.mvp_traditional.database.dao.ChannelEditDao;
+import com.sqw.mvp_traditional.db.gen.ChannelEditTableDao;
+import com.sqw.mvp_traditional.db.table.ChannelEditTable;
 import com.sqw.mvp_traditional.model.base.BaseActivity;
+import com.sqw.mvp_traditional.utils.DaoUtil;
 import com.sqw.mvp_traditional.widget.ItemDragHelperCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +31,7 @@ public class ChannelEditActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private ChannelEditAdapter adapter;
-    private ChannelEditDao dao = new ChannelEditDao();
+    private ChannelEditTableDao dao = DaoUtil.getChannelEditTableDao();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +53,8 @@ public class ChannelEditActivity extends BaseActivity {
     }
 
     private void initData() {
-        final List<ChannelEditBean> enableItems = dao.query(GlobalConstants.CHANNEL_EDIT_ENABLE);
-        final List<ChannelEditBean> disableItems = dao.query(GlobalConstants.CHANNEL_EDIT_DISABLE);
+        final List<ChannelEditTable> enableItems = dao.queryBuilder().where(ChannelEditTableDao.Properties.IsEnable.eq(GlobalConstants.CHANNEL_EDIT_ENABLE)).list();
+        final List<ChannelEditTable> disableItems = dao.queryBuilder().where(ChannelEditTableDao.Properties.IsEnable.eq(GlobalConstants.CHANNEL_EDIT_DISABLE)).list();
 
         GridLayoutManager manager = new GridLayoutManager(this, 4);
         recyclerView.setLayoutManager(manager);
@@ -117,20 +118,24 @@ public class ChannelEditActivity extends BaseActivity {
 //                    }
 //                }, ErrorAction.error());
 
-        List<ChannelEditBean> oldItems = dao.query(GlobalConstants.CHANNEL_EDIT_ENABLE);
+        List<ChannelEditTable> oldItems = dao.queryBuilder().where(ChannelEditTableDao.Properties.IsEnable.eq(GlobalConstants.CHANNEL_EDIT_ENABLE)).list();
         // 我的订阅频道是否变动
         boolean isRefresh = !compare(oldItems, adapter.getmMyChannelItems()) ;
         if (isRefresh){
-            List<ChannelEditBean> enableItems = adapter.getmMyChannelItems(); // 订阅的频道
-            List<ChannelEditBean> disableItems = adapter.getmOtherChannelItems();// 未订阅的频道
-            dao.removeAll();
+            List<ChannelEditTable> enableItems = adapter.getmMyChannelItems(); // 订阅的频道
+            List<ChannelEditTable> disableItems = adapter.getmOtherChannelItems();// 未订阅的频道
+            dao.deleteAll();
             for (int i = 0; i < enableItems.size(); i++) {
-                ChannelEditBean bean = enableItems.get(i);
-                dao.add(bean.getChannelId(), bean.getChannelName(), GlobalConstants.CHANNEL_EDIT_ENABLE, i);
+                ChannelEditTable bean = enableItems.get(i);
+                bean.setIsEnable(GlobalConstants.CHANNEL_EDIT_ENABLE);
+                bean.setPosition(i);
+                dao.insert(bean);
             }
             for (int i = 0; i < disableItems.size(); i++) {
-                ChannelEditBean bean = disableItems.get(i);
-                dao.add(bean.getChannelId(), bean.getChannelName(), GlobalConstants.CHANNEL_EDIT_DISABLE, i);
+                ChannelEditTable bean = disableItems.get(i);
+                bean.setIsEnable(GlobalConstants.CHANNEL_EDIT_DISABLE);
+                bean.setPosition(i);
+                dao.insert(bean);
             }
         }
         // 发送是否刷新事件

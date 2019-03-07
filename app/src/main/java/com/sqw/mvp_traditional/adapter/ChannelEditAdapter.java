@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sqw.mvp_traditional.R;
-import com.sqw.mvp_traditional.bean.entity.ChannelEditBean;
+import com.sqw.mvp_traditional.db.table.ChannelEditTable;
 import com.sqw.mvp_traditional.interfaces.IOnDragVHListener;
 import com.sqw.mvp_traditional.interfaces.IOnItemMoveListener;
 
@@ -55,24 +55,24 @@ public class ChannelEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     // 是否为 编辑 模式
     private boolean isEditMode;
 
-    private List<ChannelEditBean> mMyChannelItems, mOtherChannelItems;
+    private List<ChannelEditTable> mMyChannelItems, mOtherChannelItems;
 
     // 我的频道点击事件
     private OnMyChannelItemClickListener mChannelItemClickListener;
     private Handler delayHandler = new Handler();
 
-    public ChannelEditAdapter(Context context, ItemTouchHelper helper, List<ChannelEditBean> mMyChannelItems, List<ChannelEditBean> mOtherChannelItems) {
+    public ChannelEditAdapter(Context context, ItemTouchHelper helper, List<ChannelEditTable> mMyChannelItems, List<ChannelEditTable> mOtherChannelItems) {
         this.mInflater = LayoutInflater.from(context);
         this.mItemTouchHelper = helper;
         this.mMyChannelItems = mMyChannelItems;
         this.mOtherChannelItems = mOtherChannelItems;
     }
 
-    public List<ChannelEditBean> getmMyChannelItems() {
+    public List<ChannelEditTable> getmMyChannelItems() {
         return mMyChannelItems;
     }
 
-    public List<ChannelEditBean> getmOtherChannelItems() {
+    public List<ChannelEditTable> getmOtherChannelItems() {
         return mOtherChannelItems;
     }
 
@@ -359,7 +359,7 @@ public class ChannelEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (startPosition > mMyChannelItems.size() - 1) {
             return;
         }
-        ChannelEditBean item = mMyChannelItems.get(startPosition);
+        ChannelEditTable item = mMyChannelItems.get(startPosition);
         mMyChannelItems.remove(startPosition);
         mOtherChannelItems.add(0, item);
 
@@ -404,7 +404,7 @@ public class ChannelEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (startPosition > mOtherChannelItems.size() - 1) {
             return -1;
         }
-        ChannelEditBean item = mOtherChannelItems.get(startPosition);
+        ChannelEditTable item = mOtherChannelItems.get(startPosition);
         mOtherChannelItems.remove(startPosition);
         mMyChannelItems.add(item);
         return position;
@@ -441,7 +441,7 @@ public class ChannelEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        ChannelEditBean item = mMyChannelItems.get(fromPosition - COUNT_PRE_MY_HEADER);
+        ChannelEditTable item = mMyChannelItems.get(fromPosition - COUNT_PRE_MY_HEADER);
         mMyChannelItems.remove(fromPosition - COUNT_PRE_MY_HEADER);
         mMyChannelItems.add(toPosition - COUNT_PRE_MY_HEADER, item);
         notifyItemMoved(fromPosition, toPosition);

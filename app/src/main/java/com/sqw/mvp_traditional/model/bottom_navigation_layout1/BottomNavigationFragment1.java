@@ -13,14 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.sqw.mvp_traditional.GlobalConstants;
+import com.sqw.mvp_traditional.InitApp;
 import com.sqw.mvp_traditional.R;
 import com.sqw.mvp_traditional.adapter.BasePagerAdapter;
-import com.sqw.mvp_traditional.bean.entity.ChannelEditBean;
 import com.sqw.mvp_traditional.bean.event.ChannelEditActivityRefreshEvent;
-import com.sqw.mvp_traditional.database.dao.ChannelEditDao;
+import com.sqw.mvp_traditional.db.gen.ChannelEditTableDao;
+import com.sqw.mvp_traditional.db.table.ChannelEditTable;
 import com.sqw.mvp_traditional.model.base.BaseListFragment;
 import com.sqw.mvp_traditional.model.bottom_navigation_layout1.article.NewsArticleView;
 import com.sqw.mvp_traditional.model.bottom_navigation_layout1.channel.ChannelEditActivity;
+import com.sqw.mvp_traditional.utils.DaoUtil;
 import com.sqw.mvp_traditional.utils.SettingUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +44,7 @@ public class BottomNavigationFragment1 extends Fragment {
     private ViewPager viewPager;
     private BasePagerAdapter adapter;
     private LinearLayout linearLayout;
-    private ChannelEditDao dao = new ChannelEditDao();
+    private ChannelEditTableDao dao = DaoUtil.getChannelEditTableDao();
     private List<Fragment> fragmentList;
     private List<String> titleList;
     private Map<String, Fragment> map = new HashMap<>();
@@ -118,15 +120,15 @@ public class BottomNavigationFragment1 extends Fragment {
     // 初始化Tab栏
     private void initTabs() {
         // 查询数据库 获取频道列表
-        List<ChannelEditBean> channelList = dao.query(GlobalConstants.CHANNEL_EDIT_ENABLE);
+        List<ChannelEditTable> channelList = dao.queryBuilder().where(ChannelEditTableDao.Properties.IsEnable.eq(GlobalConstants.CHANNEL_EDIT_ENABLE)).list();
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
         if (channelList.size() == 0) {
-            dao.addInitData();
-            channelList = dao.query(GlobalConstants.CHANNEL_EDIT_ENABLE);
+            addInitData();
+            channelList = dao.queryBuilder().where(ChannelEditTableDao.Properties.IsEnable.eq(GlobalConstants.CHANNEL_EDIT_ENABLE)).list();
         }
 
-        for (ChannelEditBean bean : channelList) {
+        for (ChannelEditTable bean : channelList) {
 
             Fragment fragment = null;
             String channelId = bean.getChannelId();
@@ -153,6 +155,20 @@ public class BottomNavigationFragment1 extends Fragment {
             ((BaseListFragment) fragmentList.get(item)).onDoubleClickRefresh();
         }
     }
+
+    private void addInitData() {
+        String categoryId[] = InitApp.AppContext.getResources().getStringArray(R.array.mobile_news_id);
+        String categoryName[] = InitApp.AppContext.getResources().getStringArray(R.array.mobile_news_name);
+        for (int i = 0; i < 8; i++) {
+            ChannelEditTable channelEditTable = new ChannelEditTable(categoryName[i],categoryId[i], GlobalConstants.CHANNEL_EDIT_ENABLE, i);
+            dao.insert(channelEditTable);
+        }
+        for (int i = 8; i < categoryId.length; i++) {
+            ChannelEditTable channelEditTable = new ChannelEditTable(categoryName[i],categoryId[i], GlobalConstants.CHANNEL_EDIT_DISABLE, i);
+            dao.insert(channelEditTable);
+        }
+    }
+
 
     @Override
     public void onDestroy() {
