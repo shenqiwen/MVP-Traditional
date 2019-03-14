@@ -28,7 +28,7 @@ public class InitApp extends Application {
         super.onCreate();
         AppContext = getApplicationContext();
         application = this;
-      //  initBugly();
+        initBugly();
         initGreenDao();
         initStetho();
     }

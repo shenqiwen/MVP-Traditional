@@ -49,8 +49,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // 分包
     compile 'com.android.support:multidex:1.0.3'
-    // 简化版 Adapter
+    // RecycleView Adapter辅助类
     compile 'me.drakeet.multitype:multitype:3.4.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
     // EventBus
     compile 'org.greenrobot:eventbus:3.1.1'
     // Gson
@@ -73,4 +74,10 @@ dependencies {
     compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
     // 数据库调试
     compile 'com.facebook.stetho:stetho:1.5.0'
+    // 轮播图
+    compile 'com.github.xiaohaibin:XBanner:1.6.4'
+    // 图片加载
+    compile 'com.github.bumptech.glide:glide:4.8.0'
+    // ImageView图片处理
+    compile 'com.github.ai2101039:YLCircleImageView:v1.0.5'
 }
