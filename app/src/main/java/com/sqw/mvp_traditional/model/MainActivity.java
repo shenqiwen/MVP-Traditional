@@ -3,15 +3,14 @@ package com.sqw.mvp_traditional.model;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.lxj.xpopup.XPopup;
 import com.sqw.mvp_traditional.R;
 import com.sqw.mvp_traditional.model.base.BaseActivity;
 import com.sqw.mvp_traditional.model.bottom_navigation_layout1.BottomNavigationFragment1;
@@ -19,12 +18,13 @@ import com.sqw.mvp_traditional.model.bottom_navigation_layout2.BottomNavigationF
 import com.sqw.mvp_traditional.model.bottom_navigation_layout3.BottomNavigationFragment3;
 import com.sqw.mvp_traditional.model.bottom_navigation_layout4.BottomNavigationFragment4;
 import com.sqw.mvp_traditional.widget.BottomNavigationViewHelper;
+import com.sqw.mvp_traditional.widget.CustomDrawerPopupView;
 
 
 /**
  * 主界面
  */
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
 
     private final String TAG = getClass().getSimpleName();
     private static final String POSITION = "position";
@@ -42,8 +42,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private long exitTime = 0;
     private long firstClickTime = 0;
     private int position;
-    private NavigationView nav_view;
-    private DrawerLayout drawer_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +76,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // 加载ToolBar 的menu布局
         toolbar.inflateMenu(R.menu.toolbar_menu);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         // 底部导航栏
         bottom_navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.disableShiftMode(bottom_navigation);
@@ -105,18 +104,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 return true;
             }
         });
-        // 抽屉栏
-        drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //添加菜单拖动监听事件  根据菜单的拖动距离 将距离折算成旋转角度
-        drawer_layout.addDrawerListener(toggle);
-        //设置显示三横杠
-        toggle.syncState();
 
-        nav_view = (NavigationView) findViewById(R.id.nav_view);
-        // 侧滑 导航栏监听
-        nav_view.setNavigationItemSelectedListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                XPopup.get(MainActivity.this)
+                        .asCustom(new CustomDrawerPopupView(MainActivity.this))
+                        .hasShadowBg(false)
+                        .show();
+            }
+        });
+
     }
     // 双击刷新 处理
     public void doubleClick(int index) {
@@ -238,47 +236,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Toast.makeText(this,"搜索",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * 侧滑导航栏 监听
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.nav_switch_night_mode:
-//                int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//                if (mode == Configuration.UI_MODE_NIGHT_YES) {
-//                    SettingUtil.getInstance().setIsNightMode(false);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                } else {
-//                    SettingUtil.getInstance().setIsNightMode(true);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                }
-//                getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
-//                recreate();
-                Toast.makeText(this,"切换主题",Toast.LENGTH_SHORT).show();
-                return false;
-
-            case R.id.nav_setting:
-//                startActivity(new Intent(this, SettingActivity.class));
-//                drawer_layout.closeDrawers();
-                Toast.makeText(this,"设置",Toast.LENGTH_SHORT).show();
-                return false;
-
-            case R.id.nav_share:
-//                Intent shareIntent = new Intent()
-//                        .setAction(Intent.ACTION_SEND)
-//                        .setType("text/plain")
-//                        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text) + getString(R.string.source_code_url));
-//                startActivity(Intent.createChooser(shareIntent, getString(R.string.share_to)));
-//                drawer_layout.closeDrawers();
-                Toast.makeText(this,"分享",Toast.LENGTH_SHORT).show();
-                return false;
-        }
-        return false;
     }
 }

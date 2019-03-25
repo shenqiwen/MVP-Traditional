@@ -80,4 +80,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.8.0'
     // ImageView图片处理
     compile 'com.github.ai2101039:YLCircleImageView:v1.0.5'
+    // 抽屉导航
+    compile 'com.lxj:xpopup:1.5.2'
 }
