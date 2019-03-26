@@ -82,4 +82,6 @@ dependencies {
     compile 'com.github.ai2101039:YLCircleImageView:v1.0.5'
     // 抽屉导航
     compile 'com.lxj:xpopup:1.5.2'
+    // 原生API分享工具库
+    compile 'gdut.bsx:share2:0.9.3'
 }

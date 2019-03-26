@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.sqw.mvp_traditional.R;
 import com.sqw.mvp_traditional.model.base.BaseActivity;
 import com.sqw.mvp_traditional.model.bottom_navigation_layout1.BottomNavigationFragment1;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     private long exitTime = 0;
     private long firstClickTime = 0;
     private int position;
+    private BasePopupView drawerPopupView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +107,12 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        drawerPopupView = new CustomDrawerPopupView(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 XPopup.get(MainActivity.this)
-                        .asCustom(new CustomDrawerPopupView(MainActivity.this))
+                        .asCustom(drawerPopupView)
                         .hasShadowBg(false)
                         .show();
             }
